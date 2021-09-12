@@ -3,18 +3,20 @@
 
 use gmod::*;
 
-unsafe fn print(lua: lua::State, text: &str) {
-  // get the print function and put it in the stack
-  lua.get_global(lua_string!("print"));
-  // put the text to print in the stack
-  lua.push_string(text);
-  // call the function removing it and the string from the stack
-  lua.call(1, 0);
+macro_rules! gmod_print {
+  ($lua:expr, $($arg:tt)*) => ({
+    // get the print function and put it in the stack
+    $lua.get_global(lua_string!("print"));
+    // put the text to print in the stack
+    $lua.push_string(&format!($($arg)*));
+    // call the function removing it and the string from the stack
+    $lua.call(1, 0);
+  })
 }
 
 #[lua_function]
 unsafe fn test_binary(lua: lua::State) -> i32 {
-  print(lua, "it works!");
+  gmod_print!(lua, "it works!");
 
   0
 }
