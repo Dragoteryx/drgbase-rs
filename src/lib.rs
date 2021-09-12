@@ -40,7 +40,7 @@ pub unsafe fn gmod13_open(lua: lua::State) -> i32 {
 }
 
 #[gmod13_close]
-pub unsafe fn gmod13_close(lua: lua::State) -> i32 {
+pub unsafe fn gmod13_close(_: lua::State) -> i32 {
 
   0
 }
